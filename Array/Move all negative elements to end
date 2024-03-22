@@ -1,0 +1,61 @@
+void segregateElements(int arr[],int n)
+    {
+        // Your code goes here
+         int temp[n];
+     
+        // Traversal array and store +ve element in
+        // temp array
+        int j = 0; // index of temp
+        for (int i = 0; i < n ; i++)
+            if (arr[i] >= 0 )
+                temp[j++] = arr[i];
+     
+        // If array contains all positive or all negative.
+        if (j == n || j == 0)
+            return;
+     
+        // Store -ve element in temp array
+        for (int i = 0 ; i < n ; i++)
+            if (arr[i] < 0)
+                temp[j++] = arr[i];
+     
+        // Copy contents of temp[] to arr[]
+        memcpy(arr, temp, sizeof(temp));
+    }
+
+///stack approch
+
+class Solution {
+public:
+    void segregateElements(int arr[], int n) {
+        stack<int> neg;
+        stack<int> pos;
+
+        // Iterate through the array and separate negative and positive elements
+        for (int i = 0; i < n; i++) {
+            if (arr[i] < 0) {
+                neg.push(arr[i]);
+            } else {
+                pos.push(arr[i]);
+            }
+        }
+
+        // Start from the last index
+        int i = n - 1;
+
+        // Pop the negative elements from the stack and store them in the array
+        while (!neg.empty()) {
+            arr[i--] = neg.top();
+            neg.pop();
+        }
+
+        // After storing all the negative elements at the right end, store the positive elements
+        while (!pos.empty()) {
+            arr[i--] = pos.top();
+            pos.pop();
+        }
+    }
+};
+
+
+
